@@ -431,17 +431,16 @@
 
   // ── NOTIFIKACE (ntfy.sh) ─────────────────────────────────────
   async function sendNtfy(title, message, tags = '') {
-    if (NTFY_TOPIC.includes('TVŮJ')) return;
+    if (!NTFY_TOPIC || NTFY_TOPIC.includes('%%') || NTFY_TOPIC.includes('TVŮJ')) return;
     try {
-      await fetch('https://ntfy.sh/' + NTFY_TOPIC, {
+      const payload = { topic: NTFY_TOPIC, title, message };
+      if (tags) payload.tags = tags.split(',').map(t => t.trim()).filter(Boolean);
+      const res = await fetch('https://ntfy.sh/', {
         method: 'POST',
-        headers: {
-          'Title': title,
-          'Tags': tags,
-          'Content-Type': 'text/plain; charset=utf-8'
-        },
-        body: message
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       });
+      console.log('ntfy status:', res.status);
     } catch(e) { console.warn('ntfy error', e); }
   }
 
