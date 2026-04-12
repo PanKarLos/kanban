@@ -253,17 +253,10 @@
   ⚙️  KONFIGURACE — vyplň níže
   ============================================================ -->
 <script>
-  // 1. Supabase — Settings → API v tvém projektu
-  const SUPABASE_URL = "https://TVŮJ_PROJECT.supabase.co";
-  const SUPABASE_KEY = "TVŮJ_ANON_KEY";
-
-  // 2. ntfy.sh — zvol si UNIKÁTNÍ název tématu (bez diakritiky, bez mezer)
-  //    Nainstaluj ntfy app na telefon a přihlás se k odběru tohoto tématu.
-  //    Např. "karel-kanban-xyz123"
-  const NTFY_TOPIC = "TVŮJ_NTFY_TOPIC";
-
-  // 3. Admin heslo — zadej vlastní bezpečné heslo
-  const ADMIN_PASSWORD = "TVOJE_HESLO";
+  const SUPABASE_URL = "%%SUPABASE_URL%%";
+  const SUPABASE_KEY = "%%SUPABASE_KEY%%";
+  const NTFY_TOPIC = "%%NTFY_TOPIC%%";
+  const ADMIN_PASSWORD = "%%ADMIN_PASSWORD%%";
 </script>
 
 <!-- Admin login modal -->
