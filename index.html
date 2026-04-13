@@ -470,6 +470,12 @@
     await sb.from('tasks').update({ position_order: newPosition }).eq('id', id);
   };
 
+  window.reorderColumn = async function(updates) {
+    await Promise.all(updates.map(u =>
+      sb.from('tasks').update({ position_order: u.pos }).eq('id', u.id)
+    ));
+  };
+
   window.updateCard = async function(id, title, desc, priority) {
     await sb.from('tasks').update({ title, description: desc, priority }).eq('id', id);
   };
@@ -650,29 +656,30 @@
       e.preventDefault(); e.stopPropagation();
 
       const rect = div.getBoundingClientRect();
-      const mid = rect.top + rect.height / 2;
-      const insertBefore = e.clientY < mid;
-
+      const insertBefore = e.clientY < rect.top + rect.height / 2;
       div.classList.remove('drag-over-top','drag-over-bottom');
 
       if (draggedCol === col) {
-        // Reorder within same column
-        const container = document.getElementById('cards-' + col);
-        const cards = Array.from(container.querySelectorAll('.card'));
-        const positions = cards.map(c => parseFloat(c.dataset.pos) || 0);
-        const targetIdx = cards.findIndex(c => c.dataset.id === task.id);
+        // Vezmi aktuální seřazené úkoly sloupce z currentTasks
+        const colTasks = [...currentTasks]
+          .filter(t => t.status === col)
+          .sort((a, b) => {
+            const pd = (PRIO_WEIGHT[b.priority]||0) - (PRIO_WEIGHT[a.priority]||0);
+            if (pd !== 0) return pd;
+            return (a.position_order||0) - (b.position_order||0);
+          });
 
-        let newPos;
-        if (insertBefore) {
-          const before = positions[targetIdx - 1];
-          newPos = before !== undefined ? (before + positions[targetIdx]) / 2 : positions[targetIdx] - 500;
-        } else {
-          const after = positions[targetIdx + 1];
-          newPos = after !== undefined ? (positions[targetIdx] + after) / 2 : positions[targetIdx] + 500;
-        }
-        if (window.reorderCard) window.reorderCard(draggedId, newPos);
+        // Odstraň přetahovanou kartu a vlož ji na nové místo
+        const dragged = colTasks.find(t => t.id === draggedId);
+        const withoutDragged = colTasks.filter(t => t.id !== draggedId);
+        const targetIdx = withoutDragged.findIndex(t => t.id === task.id);
+        const insertAt = insertBefore ? targetIdx : targetIdx + 1;
+        withoutDragged.splice(insertAt, 0, dragged);
+
+        // Přiřaď čisté sekvenční pozice a ulož vše najednou
+        const updates = withoutDragged.map((t, i) => ({ id: t.id, pos: (i + 1) * 1000 }));
+        if (window.reorderColumn) window.reorderColumn(updates);
       } else {
-        // Move to different column
         if (window.moveCard) window.moveCard(draggedId, col);
       }
     });
