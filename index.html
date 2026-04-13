@@ -9,27 +9,16 @@
 
     body {
       font-family: 'Segoe UI', system-ui, sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
-      min-height: 100vh;
+      background: #0f172a; color: #e2e8f0; min-height: 100vh;
     }
 
     header {
-      background: #1e293b;
-      border-bottom: 1px solid #334155;
-      padding: 16px 28px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      background: #1e293b; border-bottom: 1px solid #334155;
+      padding: 14px 24px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
     }
+    header h1 { font-size: 1.25rem; font-weight: 700; color: #f1f5f9; flex: 1; }
 
-    header h1 { font-size: 1.3rem; font-weight: 700; color: #f1f5f9; flex: 1; }
-
-    #connection-status {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 0.78rem; color: #64748b;
-    }
+    #connection-status { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #64748b; }
     .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; flex-shrink: 0; }
     .status-dot.connected { background: #22c55e; }
     .status-dot.connecting { background: #f59e0b; animation: pulse 1s infinite; }
@@ -38,211 +27,216 @@
     .header-btn {
       background: #334155; border: none; color: #94a3b8;
       border-radius: 8px; padding: 7px 12px; cursor: pointer;
-      font-size: 0.85rem; display: flex; align-items: center; gap: 6px;
-      transition: all 0.15s;
+      font-size: 0.82rem; display: flex; align-items: center; gap: 5px; transition: all 0.15s;
     }
     .header-btn:hover { background: #475569; color: #e2e8f0; }
     .header-btn.active { background: #6366f1; color: #fff; }
 
-    /* Admin badge */
     #admin-badge {
-      display: none;
-      background: #6366f1;
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 20px;
-      letter-spacing: 0.5px;
+      display: none; background: #6366f1; color: #fff;
+      font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 20px;
     }
 
-    /* Modal overlay */
+    /* ── MODAL ─────────────────────────────────────────────── */
     .modal-overlay {
-      display: none;
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.7);
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+      z-index: 100; align-items: center; justify-content: center;
     }
     .modal-overlay.visible { display: flex; }
-
     .modal {
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 16px;
-      padding: 28px;
-      width: 340px;
-      max-width: 90vw;
+      background: #1e293b; border: 1px solid #334155; border-radius: 16px;
+      padding: 28px; width: 360px; max-width: 92vw;
     }
-
-    .modal h2 { font-size: 1.1rem; font-weight: 700; color: #f1f5f9; margin-bottom: 6px; }
-    .modal p { font-size: 0.85rem; color: #64748b; margin-bottom: 20px; line-height: 1.5; }
-
+    .modal h2 { font-size: 1.05rem; font-weight: 700; color: #f1f5f9; margin-bottom: 6px; }
+    .modal p { font-size: 0.82rem; color: #64748b; margin-bottom: 18px; line-height: 1.5; }
     .modal input {
       width: 100%; background: #0f172a; border: 1px solid #334155; color: #e2e8f0;
-      border-radius: 8px; padding: 10px 14px; font-size: 0.9rem; outline: none;
-      margin-bottom: 12px; transition: border-color 0.15s;
+      border-radius: 8px; padding: 10px 14px; font-size: 0.88rem; outline: none;
+      margin-bottom: 12px; transition: border-color 0.15s; font-family: inherit;
     }
     .modal input:focus { border-color: #6366f1; }
-
     .modal-buttons { display: flex; gap: 8px; }
-
     .btn-primary {
       flex: 1; background: #6366f1; color: #fff; border: none;
-      border-radius: 8px; padding: 10px; font-size: 0.9rem; font-weight: 600;
-      cursor: pointer; transition: background 0.15s;
+      border-radius: 8px; padding: 10px; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: background 0.15s;
     }
     .btn-primary:hover { background: #4f46e5; }
-
     .btn-secondary {
       background: #334155; color: #94a3b8; border: none;
-      border-radius: 8px; padding: 10px 14px; font-size: 0.9rem;
-      cursor: pointer; transition: all 0.15s;
+      border-radius: 8px; padding: 10px 14px; font-size: 0.88rem; cursor: pointer; transition: all 0.15s;
     }
     .btn-secondary:hover { background: #475569; color: #e2e8f0; }
+    .modal-error { color: #ef4444; font-size: 0.78rem; margin-bottom: 10px; display: none; }
 
-    .modal-error { color: #ef4444; font-size: 0.8rem; margin-bottom: 10px; display: none; }
-
-    /* Board */
+    /* ── BOARD ─────────────────────────────────────────────── */
     .board {
-      display: flex; gap: 20px;
-      padding: 24px 28px;
-      overflow-x: auto;
-      min-height: calc(100vh - 65px);
-      align-items: flex-start;
+      display: flex; gap: 18px; padding: 22px 24px;
+      overflow-x: auto; min-height: calc(100vh - 58px); align-items: flex-start;
     }
 
     .column {
-      background: #1e293b; border: 1px solid #334155;
-      border-radius: 14px; width: 320px; min-width: 320px;
-      display: flex; flex-direction: column;
-      max-height: calc(100vh - 110px);
+      background: #1e293b; border: 1px solid #334155; border-radius: 14px;
+      width: 320px; min-width: 320px; display: flex; flex-direction: column;
+      max-height: calc(100vh - 96px);
     }
-
     .column-header {
-      padding: 14px 16px 12px;
-      display: flex; align-items: center; gap: 10px;
+      padding: 14px 16px 11px; display: flex; align-items: center; gap: 8px;
       border-bottom: 1px solid #334155;
     }
-
-    .column-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .column-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
     .col-new .column-dot { background: #6366f1; }
     .col-in-progress .column-dot { background: #f59e0b; }
     .col-done .column-dot { background: #22c55e; }
+    .column-title { font-weight: 600; font-size: 0.9rem; color: #cbd5e1; flex: 1; }
+    .column-count { background: #334155; color: #94a3b8; font-size: 0.72rem; font-weight: 600; border-radius: 20px; padding: 2px 8px; }
 
-    .column-title { font-weight: 600; font-size: 0.92rem; color: #cbd5e1; flex: 1; }
-    .column-count { background: #334155; color: #94a3b8; font-size: 0.73rem; font-weight: 600; border-radius: 20px; padding: 2px 8px; }
-
-    /* Lock — ostatní sloupce jsou viditelné, jen bez add tlačítka */
     .col-locked .add-area { display: none; }
-
-    .lock-notice { display: none; }
 
     .cards {
       flex: 1; overflow-y: auto; padding: 10px;
-      display: flex; flex-direction: column; gap: 10px;
-      min-height: 60px;
+      display: flex; flex-direction: column; gap: 8px; min-height: 60px;
     }
-    .cards::-webkit-scrollbar { width: 4px; }
+    .cards::-webkit-scrollbar { width: 3px; }
     .cards::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
 
+    /* ── CARD ──────────────────────────────────────────────── */
     .card {
-      background: #0f172a; border: 1px solid #334155;
-      border-radius: 10px; padding: 13px;
-      cursor: default; transition: all 0.15s ease; position: relative;
+      background: #0f172a; border: 1px solid #2d3a4a;
+      border-radius: 10px; padding: 12px; transition: all 0.15s; position: relative;
+      cursor: default;
     }
     .admin-mode .card { cursor: grab; }
     .admin-mode .card:active { cursor: grabbing; }
-    .card:hover { border-color: #4f46e5; box-shadow: 0 4px 18px rgba(99,102,241,0.12); }
-    .card.dragging { opacity: 0.4; }
+    .card:hover { border-color: #4f46e5; box-shadow: 0 3px 16px rgba(99,102,241,0.12); }
+    .card.dragging { opacity: 0.35; }
+    .card.drag-over-top { border-top: 2px solid #6366f1; }
+    .card.drag-over-bottom { border-bottom: 2px solid #6366f1; }
 
-    .card-title { font-size: 0.88rem; font-weight: 600; color: #e2e8f0; margin-bottom: 5px; line-height: 1.4; padding-right: 26px; }
-    .card-desc { font-size: 0.78rem; color: #64748b; line-height: 1.5; }
+    /* Priority badge */
+    .priority-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 0.68rem; font-weight: 600; padding: 2px 7px;
+      border-radius: 20px; margin-bottom: 7px; letter-spacing: 0.3px;
+    }
+    .prio-high { background: #ef444422; color: #f87171; border: 1px solid #ef444433; }
+    .prio-medium { background: #f59e0b22; color: #fbbf24; border: 1px solid #f59e0b33; }
+    .prio-low { background: #3b82f622; color: #60a5fa; border: 1px solid #3b82f633; }
 
-    .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; gap: 8px; }
-    .card-date { font-size: 0.7rem; color: #475569; white-space: nowrap; }
+    .card-title {
+      font-size: 0.875rem; font-weight: 600; color: #e2e8f0;
+      line-height: 1.4; padding-right: 22px; margin-bottom: 5px;
+    }
+    .card-desc {
+      font-size: 0.775rem; color: #64748b; line-height: 1.55; margin-bottom: 10px;
+      white-space: pre-wrap;
+    }
 
-    .card-actions { display: flex; gap: 5px; align-items: center; }
+    /* Creator avatar */
+    .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .creator { display: flex; align-items: center; gap: 6px; min-width: 0; }
+    .avatar {
+      width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700; color: #fff;
+      background: #334155; overflow: hidden; border: 1px solid #475569;
+    }
+    .avatar.monkey { font-size: 14px; background: #1e293b; }
+    .creator-name { font-size: 0.72rem; color: #475569; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; }
 
-    /* Trumpet button - viditelný všem */
+    .card-right { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+    .card-date { font-size: 0.68rem; color: #3d4f63; white-space: nowrap; }
+
     .btn-trumpet {
-      background: none; border: 1px solid #334155; color: #94a3b8;
-      border-radius: 6px; padding: 3px 7px; cursor: pointer; font-size: 0.8rem;
+      background: none; border: 1px solid #2d3a4a; color: #64748b;
+      border-radius: 6px; padding: 2px 6px; cursor: pointer; font-size: 0.75rem;
       transition: all 0.15s; line-height: 1;
     }
     .btn-trumpet:hover { background: #f59e0b22; border-color: #f59e0b; color: #f59e0b; }
-    .btn-trumpet:active { transform: scale(0.92); }
-
-    /* Admin-only buttons */
-    .admin-only { display: none; }
-    .admin-mode .admin-only { display: flex; }
-
-    .move-btn {
-      background: #1e293b; border: 1px solid #334155; color: #94a3b8;
-      font-size: 0.7rem; border-radius: 6px; padding: 3px 7px; cursor: pointer; transition: all 0.15s;
-    }
-    .move-btn:hover { background: #334155; color: #e2e8f0; }
 
     .card-delete {
-      background: none; border: none; color: #475569; cursor: pointer;
-      padding: 3px 5px; border-radius: 4px; font-size: 0.82rem; line-height: 1;
+      display: none; background: none; border: none; color: #3d4f63; cursor: pointer;
+      padding: 2px 4px; border-radius: 4px; font-size: 0.8rem; line-height: 1;
       transition: color 0.15s; position: absolute; top: 9px; right: 9px;
-      display: none;
     }
     .admin-mode .card-delete { display: block; }
     .card-delete:hover { color: #ef4444; }
 
-    /* Add area */
+    .card-move-btns { display: none; gap: 4px; margin-top: 8px; }
+    .admin-mode .card-move-btns { display: flex; }
+    .move-btn {
+      background: #1e293b; border: 1px solid #334155; color: #94a3b8;
+      font-size: 0.68rem; border-radius: 6px; padding: 3px 7px; cursor: pointer; transition: all 0.15s;
+    }
+    .move-btn:hover { background: #334155; color: #e2e8f0; }
+
+    /* ── ADD FORM ──────────────────────────────────────────── */
     .add-area { padding: 10px; border-top: 1px solid #334155; }
     .add-btn {
-      width: 100%; background: none; border: 1px dashed #334155; color: #64748b;
-      padding: 8px; border-radius: 8px; cursor: pointer; font-size: 0.83rem;
+      width: 100%; background: none; border: 1px dashed #2d3a4a; color: #475569;
+      padding: 8px; border-radius: 8px; cursor: pointer; font-size: 0.82rem;
       transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 5px;
     }
-    .add-btn:hover { border-color: #6366f1; color: #a5b4fc; background: rgba(99,102,241,0.06); }
+    .add-btn:hover { border-color: #6366f1; color: #a5b4fc; background: rgba(99,102,241,0.05); }
 
-    .add-form { display: none; flex-direction: column; gap: 8px; }
+    .add-form { display: none; flex-direction: column; gap: 7px; }
     .add-form.visible { display: flex; }
     .add-form input, .add-form textarea {
       background: #0f172a; border: 1px solid #334155; color: #e2e8f0;
-      border-radius: 8px; padding: 9px 12px; font-size: 0.83rem; font-family: inherit;
+      border-radius: 8px; padding: 8px 11px; font-size: 0.82rem; font-family: inherit;
       resize: none; outline: none; transition: border-color 0.15s;
     }
     .add-form input:focus, .add-form textarea:focus { border-color: #6366f1; }
-    .add-form input::placeholder, .add-form textarea::placeholder { color: #475569; }
-    .form-btns { display: flex; gap: 8px; }
+    .add-form input::placeholder, .add-form textarea::placeholder { color: #3d4f63; }
+
+    /* Priority picker */
+    .prio-picker { display: flex; gap: 5px; }
+    .prio-opt {
+      flex: 1; background: #1e293b; border: 1px solid #334155; color: #64748b;
+      border-radius: 7px; padding: 5px 4px; font-size: 0.72rem; font-weight: 600;
+      cursor: pointer; transition: all 0.15s; text-align: center;
+    }
+    .prio-opt:hover { border-color: #4f46e5; color: #a5b4fc; }
+    .prio-opt.selected-high { background: #ef444422; border-color: #ef4444; color: #f87171; }
+    .prio-opt.selected-medium { background: #f59e0b22; border-color: #f59e0b; color: #fbbf24; }
+    .prio-opt.selected-low { background: #3b82f622; border-color: #3b82f6; color: #60a5fa; }
+    .prio-opt.selected-none { background: #33415540; border-color: #475569; color: #94a3b8; }
+
+    .form-row { display: flex; gap: 7px; }
+    .form-row input { flex: 1; }
+
+    .form-btns { display: flex; gap: 7px; }
     .btn-save {
       flex: 1; background: #6366f1; color: #fff; border: none;
-      border-radius: 8px; padding: 8px; font-size: 0.83rem; font-weight: 600;
+      border-radius: 8px; padding: 8px; font-size: 0.82rem; font-weight: 600;
       cursor: pointer; transition: background 0.15s;
     }
     .btn-save:hover { background: #4f46e5; }
     .btn-cancel {
       background: #1e293b; color: #94a3b8; border: 1px solid #334155;
-      border-radius: 8px; padding: 8px 10px; font-size: 0.83rem; cursor: pointer; transition: all 0.15s;
+      border-radius: 8px; padding: 8px 10px; font-size: 0.82rem; cursor: pointer; transition: all 0.15s;
     }
     .btn-cancel:hover { background: #334155; color: #e2e8f0; }
 
-    .drop-zone-active { background: rgba(99,102,241,0.05); }
+    /* drop zone */
+    .drop-indicator {
+      height: 3px; border-radius: 2px; background: #6366f1;
+      margin: 2px 0; display: none;
+    }
+    .drop-indicator.visible { display: block; }
 
-    /* Toast notification */
+    /* ── TOAST ─────────────────────────────────────────────── */
     #toast {
-      position: fixed; bottom: 24px; right: 24px;
-      background: #1e293b; border: 1px solid #334155;
-      border-radius: 10px; padding: 12px 18px;
-      font-size: 0.85rem; color: #e2e8f0;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-      transform: translateY(80px); opacity: 0;
-      transition: all 0.3s ease;
-      z-index: 200;
+      position: fixed; bottom: 22px; right: 22px;
+      background: #1e293b; border: 1px solid #334155; border-radius: 10px;
+      padding: 11px 16px; font-size: 0.83rem; color: #e2e8f0;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+      transform: translateY(70px); opacity: 0; transition: all 0.3s; z-index: 200;
     }
     #toast.show { transform: translateY(0); opacity: 1; }
-    #toast.success { border-color: #22c55e44; }
     #toast.error { border-color: #ef444444; }
 
     @media (max-width: 768px) {
-      .board { padding: 14px; flex-direction: column; }
+      .board { padding: 12px; flex-direction: column; }
       .column { width: 100%; min-width: unset; max-height: none; }
     }
   </style>
@@ -250,12 +244,12 @@
 <body>
 
 <!-- ============================================================
-  ⚙️  KONFIGURACE — vyplň níže
+  ⚙️  KONFIGURACE
   ============================================================ -->
 <script>
   const SUPABASE_URL = "%%SUPABASE_URL%%";
   const SUPABASE_KEY = "%%SUPABASE_KEY%%";
-  const NTFY_TOPIC = "%%NTFY_TOPIC%%";
+  const NTFY_TOPIC   = "%%NTFY_TOPIC%%";
   const ADMIN_PASSWORD = "%%ADMIN_PASSWORD%%";
 </script>
 
@@ -263,11 +257,11 @@
 <div class="modal-overlay" id="login-modal">
   <div class="modal">
     <h2>🔒 Admin přihlášení</h2>
-    <p>Zadej heslo pro správu úkolů — přesouvání, mazání a přidávání do všech sloupců.</p>
-    <div class="modal-error" id="login-error">Špatné heslo, zkus to znovu.</div>
+    <p>Zadej heslo pro správu úkolů.</p>
+    <div class="modal-error" id="login-error">Špatné heslo.</div>
     <input type="password" id="admin-pass-input" placeholder="Heslo" onkeydown="if(event.key==='Enter')doLogin()"/>
     <div class="modal-buttons">
-      <button class="btn-primary" onclick="doLogin()">Přihlásit se</button>
+      <button class="btn-primary" onclick="doLogin()">Přihlásit</button>
       <button class="btn-secondary" onclick="closeModal('login-modal')">Zrušit</button>
     </div>
   </div>
@@ -276,7 +270,7 @@
 <header>
   <h1>📋 Kanban Board</h1>
   <span id="admin-badge">ADMIN</span>
-  <button class="header-btn" onclick="sendPingNotification()" title="Poslat upozornění">🎺 Ping</button>
+  <button class="header-btn" onclick="sendPingNotification()">🎺 Ping</button>
   <button class="header-btn" id="admin-btn" onclick="toggleAdmin()">🔒 Admin</button>
   <div id="connection-status">
     <span class="status-dot connecting" id="status-dot"></span>
@@ -287,130 +281,158 @@
 <div class="board" id="board">
   <!-- Nové -->
   <div class="column col-new" id="col-new"
-    ondragover="onDragOver(event,'new')" ondrop="onDrop(event,'new')" ondragleave="onDragLeave(event)">
+    ondragover="onColDragOver(event,'new')" ondrop="onColDrop(event,'new')" ondragleave="onDragLeave(event)">
     <div class="column-header">
       <div class="column-dot"></div>
       <span class="column-title">Nové</span>
       <span class="column-count" id="count-new">0</span>
     </div>
     <div class="cards" id="cards-new"></div>
-    <div class="add-area">
+    <div class="add-area" id="add-area-new">
       <button class="add-btn" onclick="showForm('new')">＋ Přidat úkol</button>
       <div class="add-form" id="form-new">
-        <input type="text" id="title-new" placeholder="Název úkolu" maxlength="120"/>
-        <textarea id="desc-new" placeholder="Popis (volitelné)" rows="2"></textarea>
+        <input type="text" id="title-new" placeholder="Název úkolu *" maxlength="120"/>
+        <textarea id="desc-new" placeholder="Poznámka / popis (volitelné)" rows="2"></textarea>
+        <div class="prio-picker" id="prio-new">
+          <button type="button" class="prio-opt" data-prio="high" onclick="selectPrio('new','high')">🔴 Vysoká</button>
+          <button type="button" class="prio-opt" data-prio="medium" onclick="selectPrio('new','medium')">🟡 Střední</button>
+          <button type="button" class="prio-opt" data-prio="low" onclick="selectPrio('new','low')">🔵 Nízká</button>
+          <button type="button" class="prio-opt selected-none" data-prio="none" onclick="selectPrio('new','none')">— Žádná</button>
+        </div>
+        <input type="text" id="creator-new" placeholder="Tvoje jméno (volitelné)" maxlength="40"/>
         <div class="form-btns">
           <button class="btn-save" onclick="addCard('new')">Přidat</button>
           <button class="btn-cancel" onclick="hideForm('new')">Zrušit</button>
         </div>
       </div>
     </div>
-    <div class="lock-notice"></div>
   </div>
 
   <!-- Probíhá -->
   <div class="column col-in-progress col-locked" id="col-in-progress"
-    ondragover="onDragOver(event,'in-progress')" ondrop="onDrop(event,'in-progress')" ondragleave="onDragLeave(event)">
+    ondragover="onColDragOver(event,'in-progress')" ondrop="onColDrop(event,'in-progress')" ondragleave="onDragLeave(event)">
     <div class="column-header">
       <div class="column-dot"></div>
       <span class="column-title">Probíhá</span>
       <span class="column-count" id="count-in-progress">0</span>
     </div>
     <div class="cards" id="cards-in-progress"></div>
-    <div class="add-area">
+    <div class="add-area" id="add-area-in-progress">
       <button class="add-btn" onclick="showForm('in-progress')">＋ Přidat úkol</button>
       <div class="add-form" id="form-in-progress">
-        <input type="text" id="title-in-progress" placeholder="Název úkolu" maxlength="120"/>
-        <textarea id="desc-in-progress" placeholder="Popis (volitelné)" rows="2"></textarea>
+        <input type="text" id="title-in-progress" placeholder="Název úkolu *" maxlength="120"/>
+        <textarea id="desc-in-progress" placeholder="Poznámka / popis (volitelné)" rows="2"></textarea>
+        <div class="prio-picker" id="prio-in-progress">
+          <button type="button" class="prio-opt" data-prio="high" onclick="selectPrio('in-progress','high')">🔴 Vysoká</button>
+          <button type="button" class="prio-opt" data-prio="medium" onclick="selectPrio('in-progress','medium')">🟡 Střední</button>
+          <button type="button" class="prio-opt" data-prio="low" onclick="selectPrio('in-progress','low')">🔵 Nízká</button>
+          <button type="button" class="prio-opt selected-none" data-prio="none" onclick="selectPrio('in-progress','none')">— Žádná</button>
+        </div>
+        <input type="text" id="creator-in-progress" placeholder="Tvoje jméno (volitelné)" maxlength="40"/>
         <div class="form-btns">
           <button class="btn-save" onclick="addCard('in-progress')">Přidat</button>
           <button class="btn-cancel" onclick="hideForm('in-progress')">Zrušit</button>
         </div>
       </div>
     </div>
-    <div class="lock-notice">🔒 Pouze pro admina</div>
   </div>
 
   <!-- Hotovo -->
   <div class="column col-done col-locked" id="col-done"
-    ondragover="onDragOver(event,'done')" ondrop="onDrop(event,'done')" ondragleave="onDragLeave(event)">
+    ondragover="onColDragOver(event,'done')" ondrop="onColDrop(event,'done')" ondragleave="onDragLeave(event)">
     <div class="column-header">
       <div class="column-dot"></div>
       <span class="column-title">Hotovo</span>
       <span class="column-count" id="count-done">0</span>
     </div>
     <div class="cards" id="cards-done"></div>
-    <div class="add-area">
+    <div class="add-area" id="add-area-done">
       <button class="add-btn" onclick="showForm('done')">＋ Přidat úkol</button>
       <div class="add-form" id="form-done">
-        <input type="text" id="title-done" placeholder="Název úkolu" maxlength="120"/>
-        <textarea id="desc-done" placeholder="Popis (volitelné)" rows="2"></textarea>
+        <input type="text" id="title-done" placeholder="Název úkolu *" maxlength="120"/>
+        <textarea id="desc-done" placeholder="Poznámka / popis (volitelné)" rows="2"></textarea>
+        <div class="prio-picker" id="prio-done">
+          <button type="button" class="prio-opt" data-prio="high" onclick="selectPrio('done','high')">🔴 Vysoká</button>
+          <button type="button" class="prio-opt" data-prio="medium" onclick="selectPrio('done','medium')">🟡 Střední</button>
+          <button type="button" class="prio-opt" data-prio="low" onclick="selectPrio('done','low')">🔵 Nízká</button>
+          <button type="button" class="prio-opt selected-none" data-prio="none" onclick="selectPrio('done','none')">— Žádná</button>
+        </div>
+        <input type="text" id="creator-done" placeholder="Tvoje jméno (volitelné)" maxlength="40"/>
         <div class="form-btns">
           <button class="btn-save" onclick="addCard('done')">Přidat</button>
           <button class="btn-cancel" onclick="hideForm('done')">Zrušit</button>
         </div>
       </div>
     </div>
-    <div class="lock-notice">🔒 Pouze pro admina</div>
   </div>
 </div>
 
 <div id="toast"></div>
 
 <!-- ============================================================
-  SUPABASE INTEGRATION
+  SUPABASE
   ============================================================ -->
 <script type="module">
   import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-  const isConfigured = !SUPABASE_URL.includes('TVŮJ');
+  const ok = !SUPABASE_URL.includes('%%') && !SUPABASE_URL.includes('TVŮJ');
+  if (!ok) { setStatus('offline','Není nakonfigurováno'); return; }
 
-  if (!isConfigured) {
-    setStatus('offline', 'Není nakonfigurováno');
-    showToast('⚠️ Vyplň SUPABASE_URL a SUPABASE_KEY v souboru', 'error');
-  } else {
-    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+  const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    async function loadAll() {
-      const { data, error } = await supabase
-        .from('tasks')
-        .select('*')
-        .order('created_at', { ascending: true });
-      if (error) { setStatus('offline', 'Chyba připojení'); return; }
-      setStatus('connected', 'Sdílený – live');
-      renderAll(data || []);
-    }
-
-    supabase.channel('tasks-live')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'tasks' }, () => loadAll())
-      .subscribe(s => { if (s === 'SUBSCRIBED') setStatus('connected', 'Sdílený – live'); });
-
-    loadAll();
-
-    window.saveCard = async function(col, title, desc) {
-      const { error } = await supabase.from('tasks').insert([{ title, description: desc, status: col }]);
-      if (!error) sendNewTaskNotification(title);
-    };
-
-    window.deleteCard = async function(id) {
-      if (!confirm('Smazat úkol?')) return;
-      await supabase.from('tasks').delete().eq('id', id);
-    };
-
-    window.moveCard = async function(id, newCol) {
-      await supabase.from('tasks').update({ status: newCol }).eq('id', id);
-    };
+  async function loadAll() {
+    const { data, error } = await sb.from('tasks').select('*').order('position_order', { ascending: true });
+    if (error) { setStatus('offline','Chyba připojení'); console.error(error); return; }
+    setStatus('connected','Sdílený – live');
+    renderAll(data || []);
   }
+
+  sb.channel('tasks-live')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'tasks' }, () => loadAll())
+    .subscribe(s => { if (s === 'SUBSCRIBED') setStatus('connected','Sdílený – live'); });
+
+  loadAll();
+
+  window.saveCard = async function(col, title, desc, priority, creator) {
+    const { data: existing } = await sb.from('tasks').select('position_order').eq('status', col).order('position_order', { ascending: false }).limit(1);
+    const maxPos = existing && existing.length ? existing[0].position_order : 0;
+    const { error } = await sb.from('tasks').insert([{
+      title, description: desc, status: col,
+      priority: priority || 'none',
+      creator: creator || '',
+      position_order: maxPos + 1000
+    }]);
+    if (!error) sendNewTaskNotification(title, creator);
+  };
+
+  window.deleteCard = async function(id) {
+    if (!confirm('Smazat úkol?')) return;
+    await sb.from('tasks').delete().eq('id', id);
+  };
+
+  window.moveCard = async function(id, newCol) {
+    const { data: existing } = await sb.from('tasks').select('position_order').eq('status', newCol).order('position_order', { ascending: false }).limit(1);
+    const maxPos = existing && existing.length ? existing[0].position_order : 0;
+    await sb.from('tasks').update({ status: newCol, position_order: maxPos + 1000 }).eq('id', id);
+  };
+
+  window.reorderCard = async function(id, newPosition) {
+    await sb.from('tasks').update({ position_order: newPosition }).eq('id', id);
+  };
 </script>
 
 <!-- ============================================================
   HLAVNÍ LOGIKA
   ============================================================ -->
 <script>
-  const COLUMNS = ['new', 'in-progress', 'done'];
-  const COL_LABELS = { 'new': 'Nové', 'in-progress': 'Probíhá', 'done': 'Hotovo' };
-  let draggedId = null;
+  const COLUMNS = ['new','in-progress','done'];
+  const COL_LABELS = { 'new':'Nové', 'in-progress':'Probíhá', 'done':'Hotovo' };
+  const PRIO_WEIGHT = { high: 3, medium: 2, low: 1, none: 0 };
+
   let isAdmin = false;
+  let draggedId = null;
+  let draggedCol = null;
+  let currentTasks = [];
 
   // ── STATUS ──────────────────────────────────────────────────
   function setStatus(state, text) {
@@ -420,17 +442,15 @@
   }
 
   // ── TOAST ────────────────────────────────────────────────────
-  let toastTimer;
-  function showToast(msg, type = 'success') {
+  let _tt;
+  function showToast(msg, type = '') {
     const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = 'show ' + type;
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => { t.className = ''; }, 3500);
+    t.textContent = msg; t.className = 'show ' + type;
+    clearTimeout(_tt); _tt = setTimeout(() => { t.className = ''; }, 3200);
   }
 
-  // ── NOTIFIKACE (ntfy.sh) ─────────────────────────────────────
-  async function sendNtfy(title, message, tags = '') {
+  // ── NTFY ─────────────────────────────────────────────────────
+  async function sendNtfy(title, message, tags) {
     if (!NTFY_TOPIC || NTFY_TOPIC.includes('%%') || NTFY_TOPIC.includes('TVŮJ')) return;
     try {
       const payload = { topic: NTFY_TOPIC, title, message };
@@ -440,35 +460,192 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      console.log('ntfy status:', res.status);
+      console.log('ntfy:', res.status);
     } catch(e) { console.warn('ntfy error', e); }
   }
 
-  function sendNewTaskNotification(taskTitle) {
-    sendNtfy('📋 Nový úkol přidán', taskTitle, 'inbox_tray');
+  function sendNewTaskNotification(title, creator) {
+    const who = creator || 'nějaká opice';
+    sendNtfy('📋 Nový úkol', `${title} — přidal(a) ${who}`, 'inbox_tray');
     showToast('✅ Úkol přidán');
   }
 
   function sendPingNotification() {
-    sendNtfy('🎺 Ping z Kanban boardu', 'Někdo ti posílá upozornění!', 'loudspeaker,rotating_light');
+    sendNtfy('🎺 Ping', 'Někdo ti posílá upozornění z Kanban boardu!', 'loudspeaker,rotating_light');
     showToast('🎺 Ping odeslán!');
   }
-
   window.sendPingNotification = sendPingNotification;
 
-  function sendCardTrumpet(taskTitle) {
-    sendNtfy('🎺 Upozornění na úkol', taskTitle, 'loudspeaker');
+  function sendCardTrumpet(title, creator) {
+    const who = creator || 'někdo';
+    sendNtfy('🎺 Upozornění', `Úkol: ${title} (${who})`, 'loudspeaker');
     showToast('🎺 Upozornění odesláno!');
   }
 
+  // ── AVATAR ───────────────────────────────────────────────────
+  const AVATAR_COLORS = ['#6366f1','#8b5cf6','#ec4899','#14b8a6','#f59e0b','#ef4444','#22c55e','#3b82f6'];
+
+  function getAvatar(creator) {
+    if (!creator || creator.trim() === '') {
+      return `<div class="avatar monkey">🐒</div>`;
+    }
+    const name = creator.trim();
+    const words = name.split(/\s+/);
+    const initials = words.length >= 2
+      ? (words[0][0] + words[words.length-1][0]).toUpperCase()
+      : name.slice(0,2).toUpperCase();
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) hash = ((hash << 5) - hash) + name.charCodeAt(i);
+    const color = AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+    return `<div class="avatar" style="background:${color}">${initials}</div>`;
+  }
+
+  function getCreatorName(creator) {
+    return creator && creator.trim() ? creator.trim() : 'nějaká opice';
+  }
+
+  // ── RENDER ───────────────────────────────────────────────────
+  function renderAll(tasks) {
+    currentTasks = tasks;
+    const buckets = { 'new': [], 'in-progress': [], 'done': [] };
+    tasks.forEach(t => { if (buckets[t.status]) buckets[t.status].push(t); });
+
+    COLUMNS.forEach(col => {
+      // sort: priority desc, then position_order asc
+      buckets[col].sort((a, b) => {
+        const pd = (PRIO_WEIGHT[b.priority] || 0) - (PRIO_WEIGHT[a.priority] || 0);
+        if (pd !== 0) return pd;
+        return (a.position_order || 0) - (b.position_order || 0);
+      });
+
+      const container = document.getElementById('cards-' + col);
+      container.innerHTML = '';
+      buckets[col].forEach(t => container.appendChild(buildCard(t)));
+      document.getElementById('count-' + col).textContent = buckets[col].length;
+    });
+  }
+
+  function buildCard(task) {
+    const col = task.status;
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.dataset.id = task.id;
+    div.dataset.pos = task.position_order || 0;
+    div.dataset.col = col;
+
+    const date = new Date(task.created_at).toLocaleDateString('cs-CZ', { day: 'numeric', month: 'short' });
+
+    let prioBadge = '';
+    if (task.priority === 'high')   prioBadge = '<span class="priority-badge prio-high">🔴 Vysoká</span>';
+    if (task.priority === 'medium') prioBadge = '<span class="priority-badge prio-medium">🟡 Střední</span>';
+    if (task.priority === 'low')    prioBadge = '<span class="priority-badge prio-low">🔵 Nízká</span>';
+
+    const prevCol = COLUMNS[COLUMNS.indexOf(col) - 1];
+    const nextCol = COLUMNS[COLUMNS.indexOf(col) + 1];
+    let moveBtns = '';
+    if (prevCol) moveBtns += `<button class="move-btn" onclick="window.moveCard('${task.id}','${prevCol}')">← ${COL_LABELS[prevCol]}</button>`;
+    if (nextCol) moveBtns += `<button class="move-btn" onclick="window.moveCard('${task.id}','${nextCol}')">→ ${COL_LABELS[nextCol]}</button>`;
+
+    div.innerHTML = `
+      <button class="card-delete" onclick="window.deleteCard('${task.id}')" title="Smazat">✕</button>
+      ${prioBadge}
+      <div class="card-title">${escHtml(task.title)}</div>
+      ${task.description ? `<div class="card-desc">${escHtml(task.description)}</div>` : ''}
+      <div class="card-footer">
+        <div class="creator">
+          ${getAvatar(task.creator)}
+          <span class="creator-name">${escHtml(getCreatorName(task.creator))}</span>
+        </div>
+        <div class="card-right">
+          <span class="card-date">${date}</span>
+          <button class="btn-trumpet" onclick="sendCardTrumpet('${escAttr(task.title)}','${escAttr(task.creator || '')}')" title="Poslat upozornění">🎺</button>
+        </div>
+      </div>
+      ${moveBtns ? `<div class="card-move-btns">${moveBtns}</div>` : ''}
+    `;
+
+    // Drag events
+    div.draggable = true;
+    div.addEventListener('dragstart', e => {
+      if (!isAdmin) { e.preventDefault(); return; }
+      draggedId = task.id;
+      draggedCol = col;
+      setTimeout(() => div.classList.add('dragging'), 0);
+    });
+    div.addEventListener('dragend', () => {
+      div.classList.remove('dragging');
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('drag-over-top','drag-over-bottom'));
+    });
+
+    // Card-level dragover for reordering within same column
+    div.addEventListener('dragover', e => {
+      if (!isAdmin || !draggedId) return;
+      e.preventDefault(); e.stopPropagation();
+      const rect = div.getBoundingClientRect();
+      const mid = rect.top + rect.height / 2;
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('drag-over-top','drag-over-bottom'));
+      if (e.clientY < mid) div.classList.add('drag-over-top');
+      else div.classList.add('drag-over-bottom');
+    });
+
+    div.addEventListener('drop', e => {
+      if (!isAdmin || !draggedId || draggedId === task.id) return;
+      e.preventDefault(); e.stopPropagation();
+
+      const rect = div.getBoundingClientRect();
+      const mid = rect.top + rect.height / 2;
+      const insertBefore = e.clientY < mid;
+
+      div.classList.remove('drag-over-top','drag-over-bottom');
+
+      if (draggedCol === col) {
+        // Reorder within same column
+        const container = document.getElementById('cards-' + col);
+        const cards = Array.from(container.querySelectorAll('.card'));
+        const positions = cards.map(c => parseFloat(c.dataset.pos) || 0);
+        const targetIdx = cards.findIndex(c => c.dataset.id === task.id);
+
+        let newPos;
+        if (insertBefore) {
+          const before = positions[targetIdx - 1];
+          newPos = before !== undefined ? (before + positions[targetIdx]) / 2 : positions[targetIdx] - 500;
+        } else {
+          const after = positions[targetIdx + 1];
+          newPos = after !== undefined ? (positions[targetIdx] + after) / 2 : positions[targetIdx] + 500;
+        }
+        if (window.reorderCard) window.reorderCard(draggedId, newPos);
+      } else {
+        // Move to different column
+        if (window.moveCard) window.moveCard(draggedId, col);
+      }
+    });
+
+    return div;
+  }
+
+  // ── DRAG na prázdnou plochu sloupce ──────────────────────────
+  function onColDragOver(e, col) {
+    if (!isAdmin) return;
+    e.preventDefault();
+  }
+  function onColDrop(e, col) {
+    if (!isAdmin || !draggedId) return;
+    e.preventDefault();
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('drag-over-top','drag-over-bottom'));
+    if (draggedCol !== col && window.moveCard) window.moveCard(draggedId, col);
+  }
+  function onDragLeave(e) {
+    // handled per-card
+  }
+  window.onColDragOver = onColDragOver;
+  window.onColDrop = onColDrop;
+  window.onDragLeave = onDragLeave;
+
   // ── ADMIN ────────────────────────────────────────────────────
   function toggleAdmin() {
-    if (isAdmin) {
-      logoutAdmin();
-    } else {
-      document.getElementById('login-modal').classList.add('visible');
-      setTimeout(() => document.getElementById('admin-pass-input').focus(), 50);
-    }
+    if (isAdmin) { logoutAdmin(); return; }
+    document.getElementById('login-modal').classList.add('visible');
+    setTimeout(() => document.getElementById('admin-pass-input').focus(), 50);
   }
   window.toggleAdmin = toggleAdmin;
 
@@ -483,7 +660,6 @@
       document.getElementById('admin-btn').classList.add('active');
       document.getElementById('admin-btn').textContent = '🔓 Odhlásit';
       document.getElementById('admin-badge').style.display = 'inline-block';
-      // Odemkni sloupce
       document.getElementById('col-in-progress').classList.remove('col-locked');
       document.getElementById('col-done').classList.remove('col-locked');
       showToast('🔓 Přihlášen jako admin');
@@ -502,7 +678,7 @@
     document.getElementById('admin-badge').style.display = 'none';
     document.getElementById('col-in-progress').classList.add('col-locked');
     document.getElementById('col-done').classList.add('col-locked');
-    showToast('🔒 Odhlášen z admin režimu');
+    showToast('🔒 Odhlášen');
   }
 
   function closeModal(id) {
@@ -512,86 +688,27 @@
   }
   window.closeModal = closeModal;
 
-  // ── RENDER ────────────────────────────────────────────────────
-  function renderAll(tasks) {
-    const buckets = { 'new': [], 'in-progress': [], 'done': [] };
-    tasks.forEach(t => { if (buckets[t.status]) buckets[t.status].push(t); });
-    COLUMNS.forEach(col => {
-      const container = document.getElementById('cards-' + col);
-      container.innerHTML = '';
-      buckets[col].forEach(t => container.appendChild(buildCard(t)));
-      document.getElementById('count-' + col).textContent = buckets[col].length;
+  document.getElementById('login-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal('login-modal');
+  });
+
+  // ── FORMULÁŘE ────────────────────────────────────────────────
+  const selectedPriority = {};
+
+  function selectPrio(col, prio) {
+    selectedPriority[col] = prio;
+    const picker = document.getElementById('prio-' + col);
+    picker.querySelectorAll('.prio-opt').forEach(btn => {
+      btn.className = 'prio-opt';
+      if (btn.dataset.prio === prio) btn.classList.add('selected-' + prio);
     });
   }
+  window.selectPrio = selectPrio;
 
-  function buildCard(task) {
-    const col = task.status;
-    const div = document.createElement('div');
-    div.className = 'card';
-    div.dataset.id = task.id;
-
-    const date = new Date(task.created_at).toLocaleDateString('cs-CZ', { day: 'numeric', month: 'short' });
-
-    const prevCol = COLUMNS[COLUMNS.indexOf(col) - 1];
-    const nextCol = COLUMNS[COLUMNS.indexOf(col) + 1];
-    let moveBtns = '';
-    if (prevCol) moveBtns += `<button class="move-btn" onclick="window.moveCard('${task.id}','${prevCol}')">← ${COL_LABELS[prevCol]}</button>`;
-    if (nextCol) moveBtns += `<button class="move-btn" onclick="window.moveCard('${task.id}','${nextCol}')">→ ${COL_LABELS[nextCol]}</button>`;
-
-    div.innerHTML = `
-      <button class="card-delete admin-only" onclick="window.deleteCard('${task.id}')" title="Smazat">✕</button>
-      <div class="card-title">${escHtml(task.title)}</div>
-      ${task.description ? `<div class="card-desc">${escHtml(task.description)}</div>` : ''}
-      <div class="card-footer">
-        <span class="card-date">${date}</span>
-        <div class="card-actions">
-          <button class="btn-trumpet" onclick="sendCardTrumpet('${escAttr(task.title)}')" title="Poslat upozornění na tento úkol">🎺</button>
-          ${moveBtns ? `<div class="admin-only" style="display:none;gap:5px">${moveBtns}</div>` : ''}
-        </div>
-      </div>
-    `;
-
-    // Drag (jen admin)
-    div.addEventListener('dragstart', () => {
-      if (!isAdmin) return;
-      draggedId = task.id;
-      setTimeout(() => div.classList.add('dragging'), 0);
-    });
-    div.addEventListener('dragend', () => { div.classList.remove('dragging'); draggedId = null; });
-    div.draggable = true;
-
-    return div;
-  }
-
-  function escHtml(str) {
-    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-  function escAttr(str) {
-    return String(str).replace(/'/g,"\\'").replace(/"/g,'&quot;');
-  }
-
-  // ── DRAG & DROP ───────────────────────────────────────────────
-  function onDragOver(e, col) {
-    if (!isAdmin) return;
-    e.preventDefault();
-    document.getElementById('col-' + col).classList.add('drop-zone-active');
-  }
-  function onDragLeave(e) {
-    document.querySelectorAll('.column').forEach(c => c.classList.remove('drop-zone-active'));
-  }
-  function onDrop(e, col) {
-    e.preventDefault();
-    document.querySelectorAll('.column').forEach(c => c.classList.remove('drop-zone-active'));
-    if (draggedId && isAdmin) window.moveCard(draggedId, col);
-  }
-  window.onDragOver = onDragOver;
-  window.onDragLeave = onDragLeave;
-  window.onDrop = onDrop;
-
-  // ── FORMULÁŘE ─────────────────────────────────────────────────
   function showForm(col) {
     document.querySelector(`#col-${col} .add-btn`).style.display = 'none';
     document.getElementById('form-' + col).classList.add('visible');
+    if (!selectedPriority[col]) selectPrio(col, 'none');
     document.getElementById('title-' + col).focus();
   }
   function hideForm(col) {
@@ -599,35 +716,38 @@
     document.getElementById('form-' + col).classList.remove('visible');
     document.getElementById('title-' + col).value = '';
     document.getElementById('desc-' + col).value = '';
+    document.getElementById('creator-' + col).value = '';
+    selectPrio(col, 'none');
   }
   function addCard(col) {
     const title = document.getElementById('title-' + col).value.trim();
     if (!title) { document.getElementById('title-' + col).focus(); return; }
     const desc = document.getElementById('desc-' + col).value.trim();
-    if (window.saveCard) window.saveCard(col, title, desc);
+    const creator = document.getElementById('creator-' + col).value.trim();
+    const prio = selectedPriority[col] || 'none';
+    if (window.saveCard) window.saveCard(col, title, desc, prio, creator);
     hideForm(col);
   }
   window.showForm = showForm;
   window.hideForm = hideForm;
   window.addCard = addCard;
 
-  document.querySelectorAll('.add-form input').forEach(input => {
+  document.querySelectorAll('.add-form input[id^="title"]').forEach(input => {
     input.addEventListener('keydown', e => {
       if (e.key === 'Enter') addCard(input.id.replace('title-', ''));
     });
   });
 
-  // Close modal on overlay click
-  document.getElementById('login-modal').addEventListener('click', function(e) {
-    if (e.target === this) closeModal('login-modal');
-  });
-
-  // Fallback pokud Supabase není načtený
-  if (!window.saveCard) {
-    window.saveCard = () => {};
-    window.deleteCard = () => {};
-    window.moveCard = () => {};
+  // ── UTILS ────────────────────────────────────────────────────
+  function escHtml(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
+  function escAttr(str) {
+    return String(str || '').replace(/'/g,"\\'").replace(/"/g,'&quot;');
+  }
+
+  // Fallback
+  if (!window.saveCard)   { window.saveCard = () => {}; window.deleteCard = () => {}; window.moveCard = () => {}; window.reorderCard = () => {}; }
 </script>
 </body>
 </html>
