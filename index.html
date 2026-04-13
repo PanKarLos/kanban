@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kanban Board</title>
+  <title>Kájův úkolníček</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -224,6 +224,35 @@
     }
     .drop-indicator.visible { display: block; }
 
+    /* Edit button na kartě */
+    .btn-edit {
+      display: none; background: none; border: none; color: #3d4f63; cursor: pointer;
+      padding: 2px 5px; border-radius: 4px; font-size: 0.78rem; line-height: 1;
+      transition: color 0.15s; position: absolute; top: 9px; right: 28px;
+    }
+    .admin-mode .btn-edit { display: block; }
+    .btn-edit:hover { color: #6366f1; }
+
+    /* Edit modal extra styles */
+    .modal textarea {
+      width: 100%; background: #0f172a; border: 1px solid #334155; color: #e2e8f0;
+      border-radius: 8px; padding: 10px 14px; font-size: 0.88rem; outline: none;
+      margin-bottom: 12px; transition: border-color 0.15s; font-family: inherit;
+      resize: none;
+    }
+    .modal textarea:focus { border-color: #6366f1; }
+    .modal .prio-picker { display: flex; gap: 5px; margin-bottom: 12px; }
+    .modal .prio-opt {
+      flex: 1; background: #1e293b; border: 1px solid #334155; color: #64748b;
+      border-radius: 7px; padding: 5px 4px; font-size: 0.72rem; font-weight: 600;
+      cursor: pointer; transition: all 0.15s; text-align: center;
+    }
+    .modal .prio-opt:hover { border-color: #4f46e5; color: #a5b4fc; }
+    .modal .prio-opt.selected-high { background: #ef444422; border-color: #ef4444; color: #f87171; }
+    .modal .prio-opt.selected-medium { background: #f59e0b22; border-color: #f59e0b; color: #fbbf24; }
+    .modal .prio-opt.selected-low { background: #3b82f622; border-color: #3b82f6; color: #60a5fa; }
+    .modal .prio-opt.selected-none { background: #33415540; border-color: #475569; color: #94a3b8; }
+
     /* ── TOAST ─────────────────────────────────────────────── */
     #toast {
       position: fixed; bottom: 22px; right: 22px;
@@ -267,8 +296,28 @@
   </div>
 </div>
 
+<!-- Edit modal -->
+<div class="modal-overlay" id="edit-modal">
+  <div class="modal">
+    <h2>✏️ Upravit úkol</h2>
+    <input type="text" id="edit-title" placeholder="Název úkolu *" maxlength="120"/>
+    <textarea id="edit-desc" placeholder="Poznámka / popis (volitelné)" rows="3"></textarea>
+    <div class="prio-picker" id="edit-prio-picker">
+      <button type="button" class="prio-opt" data-prio="high"   onclick="selectEditPrio('high')">🔴 Vysoká</button>
+      <button type="button" class="prio-opt" data-prio="medium" onclick="selectEditPrio('medium')">🟡 Střední</button>
+      <button type="button" class="prio-opt" data-prio="low"    onclick="selectEditPrio('low')">🔵 Nízká</button>
+      <button type="button" class="prio-opt selected-none" data-prio="none" onclick="selectEditPrio('none')">— Žádná</button>
+    </div>
+    <div class="modal-error" id="edit-error">Název nesmí být prázdný.</div>
+    <div class="modal-buttons">
+      <button class="btn-primary" onclick="saveEdit()">Uložit</button>
+      <button class="btn-secondary" onclick="closeModal('edit-modal')">Zrušit</button>
+    </div>
+  </div>
+</div>
+
 <header>
-  <h1>📋 Kanban Board</h1>
+  <h1>📋 Kájův úkolníček</h1>
   <span id="admin-badge">ADMIN</span>
   <button class="header-btn" onclick="sendPingNotification()">🎺 Ping</button>
   <button class="header-btn" id="admin-btn" onclick="toggleAdmin()">🔒 Admin</button>
@@ -421,6 +470,10 @@
     await sb.from('tasks').update({ position_order: newPosition }).eq('id', id);
   };
 
+  window.updateCard = async function(id, title, desc, priority) {
+    await sb.from('tasks').update({ title, description: desc, priority }).eq('id', id);
+  };
+
   } // end else (ok)
 </script>
 
@@ -551,6 +604,7 @@
 
     div.innerHTML = `
       <button class="card-delete" onclick="window.deleteCard('${task.id}')" title="Smazat">✕</button>
+      <button class="btn-edit" onclick="openEditModal('${task.id}')" title="Upravit">✏️</button>
       ${prioBadge}
       <div class="card-title">${escHtml(task.title)}</div>
       ${task.description ? `<div class="card-desc">${escHtml(task.description)}</div>` : ''}
@@ -739,6 +793,50 @@
     input.addEventListener('keydown', e => {
       if (e.key === 'Enter') addCard(input.id.replace('title-', ''));
     });
+  });
+
+  // ── EDIT MODAL ───────────────────────────────────────────────
+  let editingId = null;
+  let editPriority = 'none';
+
+  function openEditModal(id) {
+    const task = currentTasks.find(t => t.id === id);
+    if (!task) return;
+    editingId = id;
+    document.getElementById('edit-title').value = task.title || '';
+    document.getElementById('edit-desc').value = task.description || '';
+    document.getElementById('edit-error').style.display = 'none';
+    selectEditPrio(task.priority || 'none');
+    document.getElementById('edit-modal').classList.add('visible');
+    setTimeout(() => document.getElementById('edit-title').focus(), 50);
+  }
+  window.openEditModal = openEditModal;
+
+  function selectEditPrio(prio) {
+    editPriority = prio;
+    document.querySelectorAll('#edit-prio-picker .prio-opt').forEach(btn => {
+      btn.className = 'prio-opt';
+      if (btn.dataset.prio === prio) btn.classList.add('selected-' + prio);
+    });
+  }
+  window.selectEditPrio = selectEditPrio;
+
+  function saveEdit() {
+    const title = document.getElementById('edit-title').value.trim();
+    if (!title) { document.getElementById('edit-error').style.display = 'block'; document.getElementById('edit-title').focus(); return; }
+    const desc = document.getElementById('edit-desc').value.trim();
+    document.getElementById('edit-error').style.display = 'none';
+    if (window.updateCard) window.updateCard(editingId, title, desc, editPriority);
+    closeModal('edit-modal');
+    showToast('✅ Úkol upraven');
+  }
+  window.saveEdit = saveEdit;
+
+  document.getElementById('edit-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal('edit-modal');
+  });
+  document.getElementById('edit-title').addEventListener('keydown', e => {
+    if (e.key === 'Enter') saveEdit();
   });
 
   // ── UTILS ────────────────────────────────────────────────────
