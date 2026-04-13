@@ -376,7 +376,8 @@
   import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
   const ok = !SUPABASE_URL.includes('%%') && !SUPABASE_URL.includes('TVŮJ');
-  if (!ok) { setStatus('offline','Není nakonfigurováno'); return; }
+  if (!ok) { setStatus('offline','Není nakonfigurováno'); }
+  else {
 
   const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -419,6 +420,8 @@
   window.reorderCard = async function(id, newPosition) {
     await sb.from('tasks').update({ position_order: newPosition }).eq('id', id);
   };
+
+  } // end else (ok)
 </script>
 
 <!-- ============================================================
